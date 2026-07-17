@@ -79,7 +79,8 @@ export default function Home() {
           </h1>
           <p className="max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Tell us your role and the company you&apos;re preparing for. We&apos;ll build a
-            personalized plan with the exact questions, topics, and mock interviews you need.
+            personalized plan with the exact questions you can expect, plus the topics and mock
+            interviews to back it up.
           </p>
 
           <PlanBuilder />

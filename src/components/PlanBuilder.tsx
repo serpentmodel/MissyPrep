@@ -4,13 +4,8 @@ import { useMemo, useState } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { companies, roles } from "@/data/homepage";
 
-function buildPlanSteps(roleTitle: string, companyName: string) {
-  return [
-    `Core ${roleTitle} fundamentals interviewers expect at ${companyName}`,
-    `${companyName}'s interview stages, timeline, and what each round tests`,
-    `A curated question set pulled from real ${companyName} candidates`,
-    `Mock interview matched to the ${roleTitle} loop at ${companyName}`,
-  ];
+function buildQuestions(companyName: string, sampleQuestions: string[]) {
+  return sampleQuestions.map((q) => q.replaceAll("{company}", companyName));
 }
 
 export default function PlanBuilder() {
@@ -19,7 +14,7 @@ export default function PlanBuilder() {
   const [plan, setPlan] = useState<{
     roleTitle: string;
     companyName: string;
-    steps: string[];
+    questions: string[];
   } | null>(null);
 
   const selectedRole = useMemo(
@@ -36,7 +31,7 @@ export default function PlanBuilder() {
     setPlan({
       roleTitle: selectedRole.title,
       companyName: selectedCompany.name,
-      steps: buildPlanSteps(selectedRole.title, selectedCompany.name),
+      questions: buildQuestions(selectedCompany.name, selectedRole.sampleQuestions),
     });
   }
 
@@ -85,23 +80,33 @@ export default function PlanBuilder() {
 
       {plan && (
         <div className="mt-4 rounded-2xl border border-black/10 bg-zinc-50 p-5 text-left dark:border-white/10 dark:bg-zinc-900/60">
-          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+          <div className="mb-1 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             <Sparkles className="h-4 w-4 text-amber-500" />
-            Your plan: {plan.roleTitle} @ {plan.companyName}
+            Exact questions you can expect
           </div>
+          <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-500">
+            {plan.roleTitle} @ {plan.companyName}
+          </p>
           <ol className="flex flex-col gap-2">
-            {plan.steps.map((step, i) => (
+            {plan.questions.map((question, i) => (
               <li
-                key={step}
+                key={question}
                 className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400"
               >
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-[11px] font-semibold text-white dark:bg-white dark:text-zinc-900">
                   {i + 1}
                 </span>
-                {step}
+                &ldquo;{question}&rdquo;
               </li>
             ))}
           </ol>
+          <a
+            href="#"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:underline dark:text-zinc-100"
+          >
+            Get the full plan and mock interview
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
       )}
     </div>
