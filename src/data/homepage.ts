@@ -109,6 +109,10 @@ export const roles: RoleOption[] = [
   },
 ];
 
+export function getSampleQuestions(role: RoleOption, companyName: string): string[] {
+  return role.sampleQuestions.map((q) => q.replaceAll("{company}", companyName));
+}
+
 export interface CompanyOption {
   id: string;
   name: string;
