@@ -100,13 +100,6 @@ export default function PlanBuilder() {
               </li>
             ))}
           </ol>
-          <a
-            href="#"
-            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:underline dark:text-zinc-100"
-          >
-            Get the full plan and mock interview
-            <ArrowRight className="h-3.5 w-3.5" />
-          </a>
         </div>
       )}
     </div>
