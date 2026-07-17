@@ -49,17 +49,17 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <Link
-              href="#"
-              className="hidden text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 sm:block"
+            <a
+              href="#roles"
+              className="hidden rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-900 dark:border-white/10 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:text-zinc-100 sm:block"
             >
-              Log in
-            </Link>
+              Interview guides
+            </a>
             <Link
               href="#plan"
               className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              Get started
+              Build my plan
             </Link>
           </div>
         </nav>
