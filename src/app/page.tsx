@@ -1,25 +1,10 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  BarChart3,
-  Briefcase,
-  Cpu,
-  Layers,
-  Star,
-  Target,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BarChart3, Layers, Star, Target, Users } from "lucide-react";
 import PlanBuilder from "@/components/PlanBuilder";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 import { companies, features, roles, stats, testimonials } from "@/data/homepage";
-
-const roleIcons = {
-  code: Briefcase,
-  chart: BarChart3,
-  cpu: Cpu,
-  target: Target,
-  layers: Layers,
-  users: Users,
-} as const;
+import { roleIcons } from "@/lib/roleIcons";
 
 const featureIcons = {
   target: Target,
@@ -31,39 +16,7 @@ const featureIcons = {
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col bg-white dark:bg-black">
-      {/* Nav */}
-      <header className="sticky top-0 z-10 border-b border-black/5 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/80">
-        <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Dataford
-          </span>
-          <div className="hidden items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400 sm:flex">
-            <a href="#roles" className="hover:text-zinc-900 dark:hover:text-zinc-100">
-              Roles
-            </a>
-            <a href="#companies" className="hover:text-zinc-900 dark:hover:text-zinc-100">
-              Companies
-            </a>
-            <a href="#features" className="hover:text-zinc-900 dark:hover:text-zinc-100">
-              How it works
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="#roles"
-              className="hidden rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 hover:text-zinc-900 dark:border-white/10 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:text-zinc-100 sm:block"
-            >
-              Interview guides
-            </a>
-            <Link
-              href="#plan"
-              className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-            >
-              Build my plan
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="flex flex-1 flex-col">
         {/* Hero */}
@@ -148,8 +101,9 @@ export default function Home() {
               {roles.map((role) => {
                 const Icon = roleIcons[role.icon];
                 return (
-                  <div
+                  <Link
                     key={role.id}
+                    href={`/guides/roles/${role.id}`}
                     className="flex flex-col gap-3 rounded-2xl border border-black/10 p-5 transition-colors hover:border-zinc-300 dark:border-white/10 dark:hover:border-zinc-700"
                   >
                     <Icon className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
@@ -159,7 +113,7 @@ export default function Home() {
                     <p className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
                       {role.blurb}
                     </p>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -180,12 +134,13 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap justify-center gap-3">
               {companies.map((company) => (
-                <span
+                <Link
                   key={company.id}
-                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-zinc-700 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300"
+                  href={`/guides/companies/${company.id}`}
+                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700"
                 >
                   {company.name}
-                </span>
+                </Link>
               ))}
               <span className="rounded-full border border-dashed border-black/20 px-4 py-2 text-sm font-medium text-zinc-500 dark:border-white/20 dark:text-zinc-500">
                 +40 more
@@ -245,9 +200,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-black/5 px-6 py-8 text-center text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-500">
-        © {new Date().getFullYear()} Dataford. Built to get you hired.
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

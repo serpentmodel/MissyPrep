@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import SiteFooter from "@/components/SiteFooter";
 import { companies, getSampleQuestions, roles } from "@/data/homepage";
 
 type PlanSearchParams = { role?: string; company?: string };
@@ -95,6 +96,8 @@ export default async function PlanPage({
           </Link>
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }

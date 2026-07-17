@@ -3,6 +3,8 @@ export interface RoleOption {
   title: string;
   blurb: string;
   icon: "code" | "chart" | "cpu" | "target" | "layers" | "users";
+  /** What interviewers are actually evaluating for this role. */
+  focusAreas: string[];
   /**
    * Sample questions for this role. Use "{company}" as a token to be
    * interpolated with the candidate's selected target company.
@@ -16,6 +18,11 @@ export const roles: RoleOption[] = [
     title: "Software Engineer",
     blurb: "Coding rounds, system design, and architecture deep-dives.",
     icon: "code",
+    focusAreas: [
+      "Data structures & algorithms under time pressure",
+      "System design and tradeoff reasoning at scale",
+      "Debugging and code quality in a live setting",
+    ],
     sampleQuestions: [
       "Design a rate limiter that could sit in front of {company}'s public API.",
       "Given a stream of events, find the top K most frequent items in real time.",
@@ -28,6 +35,11 @@ export const roles: RoleOption[] = [
     title: "Data Scientist",
     blurb: "Statistics, modeling, and case-study interviews.",
     icon: "chart",
+    focusAreas: [
+      "Statistical reasoning and experiment design",
+      "Translating ambiguous business questions into analysis",
+      "Communicating modeling tradeoffs to non-technical stakeholders",
+    ],
     sampleQuestions: [
       "How would you design an experiment to test a new feature at {company}?",
       "Explain the bias-variance tradeoff to a non-technical stakeholder.",
@@ -40,6 +52,11 @@ export const roles: RoleOption[] = [
     title: "Data Analyst",
     blurb: "SQL, metrics design, and business-case questions.",
     icon: "chart",
+    focusAreas: [
+      "SQL fluency and query performance",
+      "Defining and defending metrics",
+      "Turning data into a recommendation, not just a chart",
+    ],
     sampleQuestions: [
       "Write a query to find {company}'s week-over-week active user retention.",
       "How would you define and track success for a new product launch?",
@@ -52,6 +69,11 @@ export const roles: RoleOption[] = [
     title: "Data Engineer",
     blurb: "Pipelines, data modeling, and distributed systems.",
     icon: "layers",
+    focusAreas: [
+      "Pipeline design for scale and reliability",
+      "Data modeling and schema tradeoffs",
+      "Debugging data quality issues in production",
+    ],
     sampleQuestions: [
       "Design a pipeline to ingest and dedupe {company}'s clickstream data.",
       "How would you handle schema evolution in a data warehouse over time?",
@@ -64,6 +86,11 @@ export const roles: RoleOption[] = [
     title: "Machine Learning Engineer",
     blurb: "ML system design, coding, and applied ML rounds.",
     icon: "cpu",
+    focusAreas: [
+      "ML system design end-to-end, from data to serving",
+      "Applied ML coding and algorithm fundamentals",
+      "Model monitoring and handling drift in production",
+    ],
     sampleQuestions: [
       "Design a recommendation system for {company}'s home feed.",
       "How would you detect and handle model drift in production?",
@@ -76,6 +103,11 @@ export const roles: RoleOption[] = [
     title: "Product Manager",
     blurb: "Product sense, execution, and strategy interviews.",
     icon: "target",
+    focusAreas: [
+      "Product sense and user empathy",
+      "Prioritization under real constraints",
+      "Structured execution and cross-functional influence",
+    ],
     sampleQuestions: [
       "How would you improve {company}'s onboarding flow for new users?",
       "{company} is launching in a new market — what's your 90-day plan?",
@@ -88,6 +120,11 @@ export const roles: RoleOption[] = [
     title: "Engineering Manager",
     blurb: "Leadership, org design, and technical judgment.",
     icon: "users",
+    focusAreas: [
+      "People leadership and difficult conversations",
+      "Org and team design for a growing scope",
+      "Technical judgment without writing the code yourself",
+    ],
     sampleQuestions: [
       "How would you structure a team to own a new product area at {company}?",
       "Tell me about a time you had to deliver difficult feedback to a report.",
@@ -100,6 +137,11 @@ export const roles: RoleOption[] = [
     title: "DevOps / SRE",
     blurb: "Infrastructure, incident response, and reliability.",
     icon: "layers",
+    focusAreas: [
+      "Incident response and on-call judgment",
+      "Infrastructure and deployment design",
+      "Reliability tradeoffs (SLOs, error budgets)",
+    ],
     sampleQuestions: [
       "Walk me through how you'd design an on-call rotation for {company}.",
       "A production service is returning 500s — walk me through your first 10 minutes.",
@@ -113,31 +155,143 @@ export function getSampleQuestions(role: RoleOption, companyName: string): strin
   return role.sampleQuestions.map((q) => q.replaceAll("{company}", companyName));
 }
 
+export type CompanyDifficulty = "Moderate" | "Hard" | "Very Hard";
+
 export interface CompanyOption {
   id: string;
   name: string;
   category: string;
+  description: string;
+  difficulty: CompanyDifficulty;
 }
 
 export const companies: CompanyOption[] = [
-  { id: "google", name: "Google", category: "FAANG+" },
-  { id: "amazon", name: "Amazon", category: "FAANG+" },
-  { id: "meta", name: "Meta", category: "FAANG+" },
-  { id: "apple", name: "Apple", category: "FAANG+" },
-  { id: "netflix", name: "Netflix", category: "FAANG+" },
-  { id: "microsoft", name: "Microsoft", category: "FAANG+" },
-  { id: "openai", name: "OpenAI", category: "AI & ML" },
-  { id: "anthropic", name: "Anthropic", category: "AI & ML" },
-  { id: "nvidia", name: "NVIDIA", category: "AI & ML" },
-  { id: "stripe", name: "Stripe", category: "Fintech" },
-  { id: "square", name: "Block (Square)", category: "Fintech" },
-  { id: "coinbase", name: "Coinbase", category: "Fintech" },
-  { id: "salesforce", name: "Salesforce", category: "Enterprise Tech" },
-  { id: "snowflake", name: "Snowflake", category: "Enterprise Tech" },
-  { id: "databricks", name: "Databricks", category: "Enterprise Tech" },
-  { id: "airbnb", name: "Airbnb", category: "E-commerce & Marketplace" },
-  { id: "uber", name: "Uber", category: "E-commerce & Marketplace" },
-  { id: "doordash", name: "DoorDash", category: "E-commerce & Marketplace" },
+  {
+    id: "google",
+    name: "Google",
+    category: "FAANG+",
+    description: "Algorithm-heavy loops with a strong emphasis on Googleyness and leadership.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "amazon",
+    name: "Amazon",
+    category: "FAANG+",
+    description: "Every round is scored against the 16 Leadership Principles, technical or not.",
+    difficulty: "Hard",
+  },
+  {
+    id: "meta",
+    name: "Meta",
+    category: "FAANG+",
+    description: "Fast-paced loops that reward speed, execution, and moving with urgency.",
+    difficulty: "Hard",
+  },
+  {
+    id: "apple",
+    name: "Apple",
+    category: "FAANG+",
+    description: "Deep, team-specific interviews with a bar for craft and attention to detail.",
+    difficulty: "Hard",
+  },
+  {
+    id: "netflix",
+    name: "Netflix",
+    category: "FAANG+",
+    description: "Culture-first interviews that probe judgment and comfort with high autonomy.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "microsoft",
+    name: "Microsoft",
+    category: "FAANG+",
+    description: "Broad loops mixing coding, design, and a dedicated \"As Appropriate\" culture round.",
+    difficulty: "Moderate",
+  },
+  {
+    id: "openai",
+    name: "OpenAI",
+    category: "AI & ML",
+    description: "Research-grade technical bar with a focus on ML fundamentals and shipping speed.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "anthropic",
+    name: "Anthropic",
+    category: "AI & ML",
+    description: "Mission-driven loops that weigh technical depth alongside safety-minded judgment.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "nvidia",
+    name: "NVIDIA",
+    category: "AI & ML",
+    description: "Systems and hardware-aware engineering with deep technical panel rounds.",
+    difficulty: "Hard",
+  },
+  {
+    id: "stripe",
+    name: "Stripe",
+    category: "Fintech",
+    description: "Writing-heavy, detail-oriented loops with a high bar for engineering rigor.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "square",
+    name: "Block (Square)",
+    category: "Fintech",
+    description: "Practical, project-based interviews focused on real-world tradeoffs.",
+    difficulty: "Hard",
+  },
+  {
+    id: "coinbase",
+    name: "Coinbase",
+    category: "Fintech",
+    description: "Values-driven loops layered on top of a solid technical and case bar.",
+    difficulty: "Hard",
+  },
+  {
+    id: "salesforce",
+    name: "Salesforce",
+    category: "Enterprise Tech",
+    description: "Enterprise-scale system design paired with a strong culture-fit round.",
+    difficulty: "Moderate",
+  },
+  {
+    id: "snowflake",
+    name: "Snowflake",
+    category: "Enterprise Tech",
+    description: "Distributed systems depth with an emphasis on data platform fundamentals.",
+    difficulty: "Hard",
+  },
+  {
+    id: "databricks",
+    name: "Databricks",
+    category: "Enterprise Tech",
+    description: "High technical bar around distributed data systems and applied ML.",
+    difficulty: "Very Hard",
+  },
+  {
+    id: "airbnb",
+    name: "Airbnb",
+    category: "E-commerce & Marketplace",
+    description: "Design-minded loops that weigh craft, product sense, and core values equally.",
+    difficulty: "Hard",
+  },
+  {
+    id: "uber",
+    name: "Uber",
+    category: "E-commerce & Marketplace",
+    description: "Marketplace-scale system design with a fast-moving, metrics-driven culture round.",
+    difficulty: "Hard",
+  },
+  {
+    id: "doordash",
+    name: "DoorDash",
+    category: "E-commerce & Marketplace",
+    description: "Practical, logistics-flavored system design with a strong bias-for-action bar.",
+    difficulty: "Moderate",
+  },
 ];
 
 export const stats = [
