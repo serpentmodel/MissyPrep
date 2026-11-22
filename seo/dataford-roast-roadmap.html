@@ -1,0 +1,154 @@
+<title>Dataford SEO Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: single reading column, revenue-ordered findings, tier chips encode severity */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --fg:#17202b; --muted:#5b6675; --line:#dde2e8;
+  --accent:#3b4fd8; --fatal:#c62f3a; --fatal-bg:#fbe9ea; --rev:#a65b00; --rev-bg:#fdf0dc;
+  --comp:#1f7a5a; --comp-bg:#e3f4ec; --good:#1f7a5a;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f141b; --surface:#161d27; --fg:#e6eaf0; --muted:#9aa5b4; --line:#273140;
+  --accent:#8c9bff; --fatal:#ff7b84; --fatal-bg:#3a1a1e; --rev:#f0b25a; --rev-bg:#3a2a12;
+  --comp:#5fd3a5; --comp-bg:#123227; --good:#5fd3a5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --surface:#161d27; --fg:#e6eaf0; --muted:#9aa5b4; --line:#273140;
+  --accent:#8c9bff; --fatal:#ff7b84; --fatal-bg:#3a1a1e; --rev:#f0b25a; --rev-bg:#3a2a12;
+  --comp:#5fd3a5; --comp-bg:#123227; --good:#5fd3a5; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:860px;margin:0 auto;padding-block:40px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:2.1rem}
+h2{font-size:1.4rem;margin-bottom:12px}
+h3{font-size:1.05rem}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px}
+.verdict{font-size:1.15rem;border-left:3px solid var(--fatal);padding-left:14px}
+.meta{color:var(--muted);font-size:.9rem}
+section{display:flex;flex-direction:column;gap:14px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:var(--mono);font-size:.86em;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.chip{display:inline-block;font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.04em;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.fatal{color:var(--fatal);background:var(--fatal-bg)}
+.rev{color:var(--rev);background:var(--rev-bg)}
+.comp{color:var(--comp);background:var(--comp-bg)}
+.find{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.find .top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.find ul,.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.list{display:flex;flex-direction:column;gap:12px}
+.steps li::marker{font-family:var(--mono);color:var(--accent)}
+.good li::marker{color:var(--good)}
+.note{color:var(--muted);font-size:.88rem}
+</style>
+
+<main>
+<header>
+  <span class="eyebrow">SEO roast · dataford.io · 22 Nov 2026</span>
+  <h1>Dataford SEO Roadmap</h1>
+  <p class="verdict">You have 100,000+ programmatic pages, and a firewall that asks every non-browser visitor to prove it runs JavaScript, even on <code>robots.txt</code>.</p>
+  <p class="meta">Method: <code>seo-roast</code> checks from the Illyism seo-skills pack, applied to the home, pricing and blog pages, robots.txt, llms.txt, the sitemap index and 9 child sitemaps. Individual guide and question pages were not sampled. Ahrefs domain rating: 27. No keyword or backlink data yet: the Semrush and Ahrefs accounts are out of API units.</p>
+</header>
+
+<section>
+  <h2>Pricing: which page says what</h2>
+  <p>The homepage is running a price A/B test. Both versions ship in the server HTML (<code>data-plan-price-arm="control"</code> and <code>"low"</code>), and one is hidden later by CSS or script. Crawlers that read raw HTML, like most AI engines, see both sets of prices. The pricing page has no test and shows only the control prices.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Page</th><th>Quick Prep (monthly)</th><th>Annual</th><th>Annual badge</th></tr></thead>
+    <tbody>
+      <tr><td><code>dataford.io/</code> · control arm</td><td class="num">$39/mo</td><td class="num">$8.25/mo · $99/yr</td><td>Save 79%</td></tr>
+      <tr><td><code>dataford.io/</code> · low arm</td><td class="num">$29/mo</td><td class="num">$7.42/mo · $89/yr</td><td>Save 74%</td></tr>
+      <tr><td><code>dataford.io/pricing</code></td><td class="num">$39/mo</td><td class="num">$8.25/mo · $99/yr</td><td>none</td></tr>
+      <tr><td><code>dataford.io/llms.txt</code></td><td>no price</td><td>no price</td><td>none</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Also on /pricing: no H1, no canonical tag, and no Product or Offer structured data.</p>
+</section>
+
+<section>
+  <h2>Findings, ordered by money</h2>
+  <div class="list">
+    <div class="find">
+      <div class="top"><span class="chip fatal">FATAL?</span><h3>A Vercel Security Checkpoint covers every URL</h3></div>
+      <p>Requests with Googlebot, Bingbot, GPTBot, OAI-SearchBot and PerplexityBot user agents all got a 429 challenge page on <code>/</code> and <code>/robots.txt</code>. Real Google and Bing crawlers coming from their own servers are probably let through by Vercel's verified-bot list, but that can't be confirmed from outside. If AI search crawlers are not, ChatGPT search and Perplexity can't read the site.</p>
+      <ul>
+        <li>Only a ClaudeBot user agent got a 200, from an unverified IP. Someone has an allow rule that matches the user agent name, so any scraper can get through by claiming to be ClaudeBot.</li>
+        <li>Check: Search Console crawl stats and Bing Webmaster Tools for 429 responses.</li>
+      </ul>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip rev">REVENUE</span><h3>Two sets of prices visible at once</h3></div>
+      <p>See the table above. AI engines quote one price, and when sources disagree they trust none of them. Render only the assigned test arm on the server, or keep the experiment off crawler traffic.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip rev">REVENUE</span><h3>Positioning contradicts the site's own pages</h3></div>
+      <p><code>llms.txt</code> says Dataford "focuses on data and AI roles". Of the 10,961 guide URLs in the three guide sitemaps I read, roughly 1 in 7 are data or AI roles (data analyst 433, data scientist 396, data engineer 352, AI engineer 197, ML engineer 191). The top role slugs are software-engineer (1,664), account-executive (773), financial-analyst (561) and business-analyst (497). The homepage title and FAQ say all tech roles. Pick one story and use it in all three places.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip rev">REVENUE</span><h3>Broken slugs from company names that contain "/"</h3></div>
+      <ul>
+        <li><code>/interview-guides/alsac/st-jude-children's-research-hospital/{role}</code>: 5 guide URLs one level too deep, with an unescaped apostrophe.</li>
+        <li><code>/interview-guides/banque-nationale-du-canada/national-bank-of-canada</code> is in the companies sitemap, but the route reads it as a role guide.</li>
+      </ul>
+      <p>Fix: strip "/" and apostrophes when building the slug, and 301 the old URLs to the new ones.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip rev">REVENUE</span><h3>Page counts don't match the claims</h3></div>
+      <p>The homepage and <code>llms.txt</code> say "86,000+ interview guides". There are 24 guide sitemaps. The two full ones I checked hold 5,000 URLs each and the last holds 961. If the other 21 are also full, that's about 116,000 guide URLs. Read the count from the data in one place and use it in the H1, FAQ and <code>llms.txt</code>.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip rev">REVENUE</span><h3>Unknown: how thin the long-tail guides are</h3></div>
+      <p>Guides like <code>forever-living-products/operations-manager</code> and <code>mercor/ai-trainer</code> suggest many pages may carry little company-specific content. On a domain rating 27 site, a large share of thin pages on one template pulls down the strong ones. Sample about 20 guides per sitemap. Mark any with fewer than 3 real questions or experiences <code>noindex, follow</code> and drop them from the sitemap.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip comp">COMPOUNDING</span><h3>Some sitemap dates always say "now"</h3></div>
+      <p>Guide, question and page sitemaps carry real per-page dates. The sitemap index, companies, roles, coaching and collections sitemaps stamp the generation time on every URL. Google learns to ignore dates that are always "now", so use each page's real update time.</p>
+    </div>
+    <div class="find">
+      <div class="top"><span class="chip comp">COMPOUNDING</span><h3>Authority: domain rating 27</h3></div>
+      <p>The competitor link gap can't be measured until Ahrefs or Semrush units are topped up. The fastest assets to earn links with are already published: the India data salary report and the 2026 job market report.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Already working</h2>
+  <ul class="steps good">
+    <li><code>robots.txt</code> allows everything and only blocks private paths (sign-up, workspace, api, booking).</li>
+    <li>Unknown URLs return a real 404 marked <code>noindex</code>.</li>
+    <li>The homepage is server-rendered, with prices in the HTML and Organization and WebSite structured data.</li>
+    <li>The sitemap index splits 45 child sitemaps by type, and guide and question sitemaps carry real dates.</li>
+    <li>The blog publishes every 3 days or so (latest post 21 Nov), with BlogPosting and Person author markup.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What to do next</h2>
+  <ol class="steps">
+    <li><strong>Today:</strong> check the Vercel Firewall settings. Turn off a permanent Attack Challenge Mode, let verified bots and the AI search crawlers through, and exempt <code>/robots.txt</code>, <code>/sitemap*</code> and <code>/llms.txt</code>. Replace the ClaudeBot rule that matches on name with Vercel's verified-bot checks.</li>
+    <li>Fix the price test so each visitor and crawler gets one set of prices. Read /pricing and llms.txt from the same price constants, and add an H1, a canonical tag and Offer structured data to /pricing.</li>
+    <li>Align positioning across llms.txt, the homepage title and description, and the FAQ.</li>
+    <li>Fix the slug generator and redirect the broken URLs.</li>
+    <li>Use one count constant for guides and questions, and real dates in the companies, roles, coaching and collections sitemaps.</li>
+    <li>Sample the guide pages and noindex thin ones (<code>seo-roast</code>, point 2).</li>
+    <li>Then build authority: syndicate the data reports (<code>parasite-and-pr</code>), add /vs/ comparison pages (<code>vs-and-alternatives</code>), and route blog traffic to coaching and pricing (<code>internal-linking</code>).</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Still blocked</h2>
+  <ul class="steps">
+    <li>Crawling guide and question pages: this session's permission rules block getting past the site's bot checkpoint. A Vercel bypass rule or token for the audit, or a permission rule from the site owner, would unblock it.</li>
+    <li>Keyword, traffic and backlink data: Semrush has no API units left, and Ahrefs has 19 of the 50+ its cheapest site report needs.</li>
+    <li>Shipping the fixes as a pull request needs access to the Dataford codebase.</li>
+  </ul>
+</section>
+</main>
